@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
 
         //远程调用URL
         String url = "http://" + serviceInstance.getHost()+":"+serviceInstance.getPort() + "/product/" + productId;
-        log.info("远程请求{}:",url);
+        log.info("远程请求1{}:",url);
         //2. 给远程发送请求
         Product product = restTemplate.getForObject(url, Product.class);
 
