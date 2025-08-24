@@ -20,14 +20,14 @@ public class OrderController {
 
     @Autowired
     OrderProperties orderProperties;
-
+//
 //    // 获取Nacos中的配置
 //    @Value("${order.timeout}")
 //    String orderTimeout;
 //    @Value("${order.auto-confirm}")
 //    String orderAutoConfirm;
-
-
+//
+//
 //    @GetMapping("/getConfig")
 //    public String getConfig() {
 //        return "orderTimeout: " + orderTimeout +
@@ -36,7 +36,8 @@ public class OrderController {
     @GetMapping("/getConfig")
     public String getConfig() {
         return "orderTimeout: " + orderProperties.getTimeout() +
-                ", orderAutoConfirm: " + orderProperties.getAutoConfirm() ;
+                ", orderAutoConfirm: " + orderProperties.getAutoConfirm() +
+                ", order.db-url: " + orderProperties.getDbUrl() ;
     }
 
     @GetMapping("/create")

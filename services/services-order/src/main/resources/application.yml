@@ -1,0 +1,53 @@
+server:
+  port: 8000
+spring:
+  profiles:
+    active: dev
+  application:
+    name: services-order
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:dev}  #通过 配置占位符 自动关联环境与命名空间，避免手动同步：
+#  config:
+#    import:
+#      - nacos:common.properties?group=order
+#      - nacos:database.properties?group=order
+# 此处由于DEV、QAS、PRD不同环境加载的配置文件不相同，所有不能统一配置，所以改用为下面方式进行配置，不同环境加载不同的配置文件
+
+
+---
+# DEV环境
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    activate:
+      on-profile: dev
+
+---
+# qas 环境
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+      - nacos:haha.properties?group=order
+    activate:
+      on-profile: qas
+
+
+---
+# prd 环境
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+      - nacos:haha.properties?group=order
+    activate:
+      on-profile: prd
