@@ -1,6 +1,8 @@
 package com.zxx.config;
 
 import feign.Logger;
+import feign.RetryableException;
+import feign.Retryer;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +21,13 @@ public class OrderServiceConfig {
     @Bean
     Logger.Level feignLoggerLevel(){
         return Logger.Level.FULL;
+    }
+
+
+    // 添加超时配置
+    @Bean
+    Retryer retryer(){
+
+        return new Retryer.Default();   //  new 的是Default 内部类
     }
 }
