@@ -3,15 +3,32 @@ package com.zxx.controller;
 import com.zxx.order.Order;
 import com.zxx.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RefreshScope
+// RefreshScope用于实现 配置动态刷新 功能 —— 当配置中心
+// （如 Nacos、Config Server）的配置发生变更时，被该注解标记的 Bean 会自动刷新并加载最新配置，无需重启应用。
 @RestController
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    // 获取Nacos中的配置
+    @Value("${order.timeout}")
+    String orderTimeout;
+    @Value("${order.auto-confirm}")
+    String orderAutoConfirm;
+
+
+    @GetMapping("/getConfig")
+    public String getConfig() {
+        return "orderTimeout: " + orderTimeout +
+                ", orderAutoConfirm: " +orderAutoConfirm ;
+    }
 
     @GetMapping("/create")
     public Order createOrder(@RequestParam("userId") Long userId, @RequestParam("productId") Long productId) {
