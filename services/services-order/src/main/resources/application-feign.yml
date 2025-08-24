@@ -14,6 +14,8 @@ spring:
             connect-timeout: 3000
             read-timeout: 5000
 #            retryer: feign.retryer.Default
+#            request-interceptors:
+#              - com.zxx.interceptor.XTokenRequestInterceptor
     sentinel:
       transport:
         dashboard: localhost:8080
