@@ -1,6 +1,7 @@
 package com.zxx.controller;
 
 import com.zxx.order.Order;
+import com.zxx.properties.OrderProperties;
 import com.zxx.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,17 +18,25 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    // 获取Nacos中的配置
-    @Value("${order.timeout}")
-    String orderTimeout;
-    @Value("${order.auto-confirm}")
-    String orderAutoConfirm;
+    @Autowired
+    OrderProperties orderProperties;
+
+//    // 获取Nacos中的配置
+//    @Value("${order.timeout}")
+//    String orderTimeout;
+//    @Value("${order.auto-confirm}")
+//    String orderAutoConfirm;
 
 
+//    @GetMapping("/getConfig")
+//    public String getConfig() {
+//        return "orderTimeout: " + orderTimeout +
+//                ", orderAutoConfirm: " +orderAutoConfirm ;
+//    }
     @GetMapping("/getConfig")
     public String getConfig() {
-        return "orderTimeout: " + orderTimeout +
-                ", orderAutoConfirm: " +orderAutoConfirm ;
+        return "orderTimeout: " + orderProperties.getTimeout() +
+                ", orderAutoConfirm: " + orderProperties.getAutoConfirm() ;
     }
 
     @GetMapping("/create")
