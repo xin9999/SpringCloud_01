@@ -1,6 +1,7 @@
 package com.zxx.service.impl;
 
 
+import com.zxx.feign.ProductFeignClient;
 import com.zxx.order.Order;
 import com.zxx.product.Product;
 import com.zxx.service.OrderService;
@@ -29,6 +30,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     LoadBalancerClient loadBalancerClient;
 
+    @Autowired
+    ProductFeignClient productFeignClient;
+
     @Override
     public Order createOrder(Long productId, Long userId) {
 //        Product product = getProductBalancedAnnotation(productId);
@@ -36,7 +40,9 @@ public class OrderServiceImpl implements OrderService {
 
 //        Product product = getProductFromRemote(productId);// 1. 普通远程调用
 //        Product product = getProductBalanced(productId);  // 2. 负载均衡调用
-        Product product = getProductBalancedAnnotation(productId);  // 3. 负载均衡调用(注解式)
+//        Product product = getProductBalancedAnnotation(productId);  // 3. 负载均衡调用(注解式)
+        Product product = productFeignClient.getProductById(productId);  // 4. 使用Feign实现远程调用
+
         Order order = new Order();
         order.setId(1L);
         // 总金额
