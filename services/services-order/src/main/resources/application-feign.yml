@@ -14,6 +14,8 @@ spring:
             connect-timeout: 3000
             read-timeout: 5000
 #            retryer: feign.retryer.Default
+#            request-interceptors:
+#              - com.zxx.interceptor.XTokenRequestInterceptor
     sentinel:
       transport:
         dashboard: localhost:8080
@@ -21,6 +23,7 @@ spring:
       # 分割web上下文
       web-context-unify: false
 
-feign:
-  sentinel:
-    enabled: true
+#需要配合sentinel
+feign: #需要配合sentinel
+  sentinel: #需要配合sentinel
+    enabled: true #需要配合sentinel

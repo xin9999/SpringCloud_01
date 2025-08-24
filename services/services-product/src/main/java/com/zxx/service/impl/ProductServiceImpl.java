@@ -20,12 +20,12 @@ public class ProductServiceImpl implements ProductService {
 //        throw new RuntimeException("被调用方出现异常");
 
         // 模拟API超时
-        try {
-//            Thread.sleep(1000 * 2);
-            TimeUnit.SECONDS.sleep(100);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+////            Thread.sleep(1000 * 2);
+//            TimeUnit.SECONDS.sleep(100);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         return product;
 
 

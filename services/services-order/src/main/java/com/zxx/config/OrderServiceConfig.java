@@ -25,9 +25,9 @@ public class OrderServiceConfig {
 
 
     // 添加超时配置
-    @Bean
-    Retryer retryer(){
-
-        return new Retryer.Default();   //  new 的是Default 内部类
-    }
+//    @Bean
+//    Retryer retryer(){
+//
+//        return new Retryer.Default();   //  new 的是Default 内部类
+//    }
 }
