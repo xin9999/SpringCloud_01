@@ -1,5 +1,6 @@
 package com.zxx.feign;
 
+import com.zxx.feign.failback.ProductFeignClientFailBack;
 import com.zxx.product.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 
 // Value 是所调用微服务的名称
-@FeignClient(value = "services-product")
+@FeignClient(value = "services-product", fallback = ProductFeignClientFailBack.class)
 public interface ProductFeignClient {
 
     /**
