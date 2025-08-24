@@ -18,6 +18,11 @@ spring:
 #      - nacos:database.properties?group=order
 # 此处由于DEV、QAS、PRD不同环境加载的配置文件不相同，所有不能统一配置，所以改用为下面方式进行配置，不同环境加载不同的配置文件
 
+#开启 OpenFeign 的日志
+logging:
+  level:
+    com.zxx.feign: debug  #对项目中 feign 文件夹下的所有文件开启日志
+
 
 ---
 # DEV环境
