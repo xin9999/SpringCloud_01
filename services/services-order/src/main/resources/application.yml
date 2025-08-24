@@ -3,6 +3,7 @@ server:
 spring:
   profiles:
     active: dev
+    include: feign   # # 同时引入 feign 环境的配置, 对应文件名 application-feign.yaml
   application:
     name: services-order
   cloud:
