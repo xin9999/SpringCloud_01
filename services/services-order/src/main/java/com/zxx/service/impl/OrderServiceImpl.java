@@ -1,6 +1,7 @@
 package com.zxx.service.impl;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.zxx.feign.ProductFeignClient;
 import com.zxx.order.Order;
 import com.zxx.product.Product;
@@ -33,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     ProductFeignClient productFeignClient;
 
+    @SentinelResource(value = "createOrder")
     @Override
     public Order createOrder(Long productId, Long userId) {
 //        Product product = getProductBalancedAnnotation(productId);
