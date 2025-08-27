@@ -1,7 +1,9 @@
 package com.zxx.service.impl;
 
 
+import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.zxx.feign.ProductFeignClient;
 import com.zxx.order.Order;
 import com.zxx.product.Product;
@@ -34,7 +36,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     ProductFeignClient productFeignClient;
 
-    @SentinelResource(value = "createOrder")
+    /**
+     * 被保护的资源方法
+     * value: 资源名称（必填）
+     * blockHandler: 处理限流/熔断等规则触发的异常
+     * fallback: 处理业务异常
+     * blockHandlerClass/fallbackClass: 指定异常处理方法所在的类（默认当前类）
+     */
+    @SentinelResource(value = "createOrder", blockHandler = "createOrderFallback")
     @Override
     public Order createOrder(Long productId, Long userId) {
 //        Product product = getProductBalancedAnnotation(productId);
@@ -55,6 +64,26 @@ public class OrderServiceImpl implements OrderService {
         order.setAddress("成都");
         // 商品列表
         order.setProducts(Arrays.asList(product));
+        return order;
+    }
+
+    // ------------------------------
+    // blockHandler 方法（处理Sentinel规则异常）
+    // ------------------------------
+    /**
+     * 注意事项：
+     * 1. 方法参数、返回值需与原方法一致
+     * 2. 最后一个参数必须是 BlockException（Sentinel 规则异常）
+     */
+    public Order createOrderFallback(Long productId, Long userId, BlockException e) {
+
+        Order order = new Order();
+        order.setId(0L);
+        order.setUserId(userId);
+        order.setTotalAmount(new BigDecimal(0));
+        order.setNickName("未知用户");
+        order.setAddress("异常信息：" + e.getClass());
+
         return order;
     }
 
