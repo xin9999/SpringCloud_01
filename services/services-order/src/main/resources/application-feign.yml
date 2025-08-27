@@ -20,7 +20,7 @@ spring:
       transport:
         dashboard: localhost:8080
       eager: true
-      # 分割web上下文
+      # 分割web上下文,在sentinel中不共用同一个上下文
       web-context-unify: false
 
 #需要配合sentinel

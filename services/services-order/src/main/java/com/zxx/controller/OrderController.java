@@ -45,4 +45,17 @@ public class OrderController {
         return orderService.createOrder(productId, userId);
     }
 
+    @GetMapping("/seckill")
+    public Order seckill(@RequestParam("userId") Long userId, @RequestParam("productId") Long productId) {
+        return orderService.createOrder(productId, userId);
+    }
+
+    @GetMapping("/readDB")
+    public String readDB() {
+        return "success.....";
+    }
+    @GetMapping("/writeDB")
+    public String wirteDB() {
+        return "success.....";
+    }
 }
