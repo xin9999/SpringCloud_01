@@ -1,5 +1,7 @@
 package com.zxx.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.zxx.order.Order;
 import com.zxx.properties.OrderProperties;
 import com.zxx.service.OrderService;
@@ -48,8 +50,19 @@ public class OrderController {
     }
 
     @GetMapping("/seckill")
+    @SentinelResource(value = "seckill-order", fallback = "seckillFallback")
     public Order seckill(@RequestParam("userId") Long userId, @RequestParam("productId") Long productId) {
         return orderService.createOrder(productId, userId);
+    }
+
+    // 当触发热点规则，执行的方法
+    public Order seckillFallback( Long userId, Long productId, BlockException e) {
+        System.out.println("Seckill fallback 兜底回调......");
+        Order order = new Order();
+        order.setId(productId);
+        order.setUserId(userId);
+        order.setAddress("异常信息，" + e.getClass());
+        return order;
     }
 
     @GetMapping("/readDB")
