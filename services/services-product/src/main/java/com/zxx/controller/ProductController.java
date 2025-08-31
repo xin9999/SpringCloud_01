@@ -22,6 +22,7 @@ public class ProductController {
                               HttpServletRequest request) {
         String xToken = request.getHeader("X-Token");
         System.out.println("test interceptors token:" + xToken);
+        int r = 10/0;
         System.out.println("由于注解式负载均衡不打印端口号，此处测试调用了哪个机器");
         Product product =  productService.getProductById(productId);
 
