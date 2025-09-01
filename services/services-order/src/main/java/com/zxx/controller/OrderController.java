@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 // RefreshScope用于实现 配置动态刷新 功能 —— 当配置中心
 // （如 Nacos、Config Server）的配置发生变更时，被该注解标记的 Bean 会自动刷新并加载最新配置，无需重启应用。
 @RestController
+@RequestMapping("/api/order")
 public class OrderController {
     @Autowired
     private OrderService orderService;
