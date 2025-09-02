@@ -11,3 +11,14 @@ spring:
           uri: lb://services-product
           predicates:
             - Path=/api/product/**
+        - id: bing-rote
+          uri: https://cn.bing.com
+          predicates:   # 访问 http://localhost/search?q=haha成功
+            - name: Path
+              args:
+                patterns: /search
+            - name: Query
+              args:
+                param: q
+                regexp: haha
+          order: 10 #优先级，越小优先级越高，默认为从上到下匹配
