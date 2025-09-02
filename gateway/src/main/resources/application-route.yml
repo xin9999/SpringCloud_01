@@ -21,4 +21,9 @@ spring:
               args:
                 param: q
                 regexp: haha
+#            - Vip=user,zhangxixin
+            - name: Vip  # 访问 http://localhost/search?q=haha&user=zhangxixin
+              args:
+                param: user
+                value: zhangxixin
           order: 10 #优先级，越小优先级越高，默认为从上到下匹配
