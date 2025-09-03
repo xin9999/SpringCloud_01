@@ -1,5 +1,7 @@
 package com.zxx.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.zxx.order.Order;
 import com.zxx.properties.OrderProperties;
 import com.zxx.service.OrderService;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 // RefreshScope用于实现 配置动态刷新 功能 —— 当配置中心
 // （如 Nacos、Config Server）的配置发生变更时，被该注解标记的 Bean 会自动刷新并加载最新配置，无需重启应用。
 @RestController
+//@RequestMapping("/api/order")
 public class OrderController {
     @Autowired
     private OrderService orderService;
@@ -48,8 +52,19 @@ public class OrderController {
     }
 
     @GetMapping("/seckill")
+    @SentinelResource(value = "seckill-order", fallback = "seckillFallback")
     public Order seckill(@RequestParam("userId") Long userId, @RequestParam("productId") Long productId) {
         return orderService.createOrder(productId, userId);
+    }
+
+    // 当触发热点规则，执行的方法
+    public Order seckillFallback( Long userId, Long productId, BlockException e) {
+        System.out.println("Seckill fallback 兜底回调......");
+        Order order = new Order();
+        order.setId(productId);
+        order.setUserId(userId);
+        order.setAddress("异常信息，" + e.getClass());
+        return order;
     }
 
     @GetMapping("/readDB")

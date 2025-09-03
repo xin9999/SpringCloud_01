@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+      # 配置route转发规则
+      routes:
+        - id: order-rote
+          uri: lb://services-order
+          predicates:
+            - Path=/api/order/**
+          filters:
+            # 路径转换 /api/order/XXXX  ->  /XXXX  (无需在controller中配置 @RequestMapping)
+            - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
+            - AddResponseHeader=X-Response-ABC,123
+        - id: product-rote
+          uri: lb://services-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/product/?(?<segment>.*), /$\{segment}
+        - id: bing-rote
+          uri: https://cn.bing.com
+          predicates:   # 访问 http://localhost/search?q=haha成功
+            - name: Path
+              args:
+                patterns: /search
+            - name: Query
+              args:
+                param: q
+                regexp: haha
+#            - Vip=user,zhangxixin
+            - name: Vip  # 访问 http://localhost/search?q=haha&user=zhangxixin
+              args:
+                param: user
+                value: zhangxixin
+          order: 10 #优先级，越小优先级越高，默认为从上到下匹配

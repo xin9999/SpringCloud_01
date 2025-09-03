@@ -10,6 +10,7 @@
         <module name="services-product" />
         <module name="services-order" />
         <module name="model" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,6 +21,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="SpringCloud_02" options="-parameters" />
       <module name="cloud-demo" options="" />
+      <module name="gateway" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="services" options="" />
       <module name="services-order" options="-parameters" />
