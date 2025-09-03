@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 // RefreshScope用于实现 配置动态刷新 功能 —— 当配置中心
 // （如 Nacos、Config Server）的配置发生变更时，被该注解标记的 Bean 会自动刷新并加载最新配置，无需重启应用。
 @RestController
-@RequestMapping("/api/order")
+//@RequestMapping("/api/order")
 public class OrderController {
     @Autowired
     private OrderService orderService;

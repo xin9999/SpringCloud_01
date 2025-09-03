@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.TimeUnit;
 
-@RequestMapping("/api/product")
+//@RequestMapping("/api/product")
 @RestController
 public class ProductController {
 
