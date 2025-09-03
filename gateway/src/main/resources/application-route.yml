@@ -12,6 +12,7 @@ spring:
             - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
             # 服务 http://localhost/api/order/readDB, 可以看到响应头
 #            - AddResponseHeader=X-Response-ABC,123
+            - OnceToken=X-Response-Token, uuid
         - id: product-rote
           uri: lb://services-product
           predicates:
