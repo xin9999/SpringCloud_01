@@ -32,7 +32,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.22</version>
         </dependency>
-        <!-- seata -->
+<!--         seata 引入了Seata, 就必须在每个微服务下配置seata相关配置，否则会报错-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>

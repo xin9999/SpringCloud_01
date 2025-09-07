@@ -13,7 +13,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderTblMapper orderTblMapper;
     @Autowired
-    AccountFeignClient accountFeignClient;
+    AccountFeignClient accountFeignClient;  // 67 - seata打通远程调用
 
     @Override
 //    @Transactional(rollbackFor = Exception.class)
@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
         int orderMoney = calculate(commodityCode, orderCount);
 
         // 2、扣减账户余额
-//        accountFeignClient.debit(userId, orderMoney);
+        accountFeignClient.debit(userId, orderMoney); // 67 - seata打通远程调用
 
         //3、保存订单
         OrderTbl orderTbl = new OrderTbl();
@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
         orderTblMapper.insert(orderTbl);
 
         // 模拟异常
-//        int i = 10/0;
+        int i = 10/0;
 
         return orderTbl;
     }
