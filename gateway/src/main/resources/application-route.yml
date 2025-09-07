@@ -10,7 +10,9 @@ spring:
           filters:
             # 路径转换 /api/order/XXXX  ->  /XXXX  (无需在controller中配置 @RequestMapping)
             - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
-            - AddResponseHeader=X-Response-ABC,123
+            # 服务 http://localhost/api/order/readDB, 可以看到响应头
+#            - AddResponseHeader=X-Response-ABC,123
+            - OnceToken=X-Response-Token, uuid
         - id: product-rote
           uri: lb://services-product
           predicates:
@@ -33,3 +35,7 @@ spring:
                 param: user
                 value: zhangxixin
           order: 10 #优先级，越小优先级越高，默认为从上到下匹配
+
+      #默认过滤器，对所有路由起作用，访问 http://localhost/api/product/product/1 和 http://localhost/api/order/readDB，都可以看到响应头
+      default-filters:
+        - AddResponseHeader=X-Response-ABC,123

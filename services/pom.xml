@@ -12,6 +12,10 @@
     <modules>
         <module>services-product</module>
         <module>services-order</module>
+        <module>seata-account</module>
+        <module>seata-business</module>
+        <module>seata-order</module>
+        <module>seata-storage</module>
     </modules>
     <artifactId>services</artifactId>
 
@@ -22,6 +26,18 @@
     </properties>
 
     <dependencies>
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
+        </dependency>
+<!--         seata 引入了Seata, 就必须在每个微服务下配置seata相关配置，否则会报错-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.zxx</groupId>
             <artifactId>model</artifactId>
