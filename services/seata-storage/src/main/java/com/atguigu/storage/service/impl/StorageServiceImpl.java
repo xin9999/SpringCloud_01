@@ -15,7 +15,8 @@ public class StorageServiceImpl implements StorageService {
     StorageTblMapper storageTblMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+//    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void deduct(String commodityCode, int count) {
         storageTblMapper.deduct(commodityCode, count);
         if (Objects.equals(5, count)) {

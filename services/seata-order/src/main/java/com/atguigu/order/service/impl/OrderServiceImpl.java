@@ -16,7 +16,8 @@ public class OrderServiceImpl implements OrderService {
     AccountFeignClient accountFeignClient;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+//    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public OrderTbl create(String userId, String commodityCode, int orderCount) {
         // 1、计算订单价格
         int orderMoney = calculate(commodityCode, orderCount);
