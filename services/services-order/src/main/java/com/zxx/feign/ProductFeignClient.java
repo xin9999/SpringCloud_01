@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 
 // Value 是所调用微服务的名称
-@FeignClient(value = "gateway", fallback = ProductFeignClientFailBack.class)
+@FeignClient(value = "services-product", fallback = ProductFeignClientFailBack.class)
 public interface ProductFeignClient {
 
     /**
@@ -18,7 +18,7 @@ public interface ProductFeignClient {
      * 2.、标注在Feignclient上，是发送这样的请求
      */
 //    @GetMapping("/api/product/product/{id}")
-    @GetMapping("/api/product/product/{id}")
+    @GetMapping("/product/{id}")
     Product getProductById(@PathVariable("id") Long id);
 //    Product getProductById(@PathVariable("id") Long id, @RequestHeader("token") String token);
     // 接收请求时，是将路径中 {id}作为参数
